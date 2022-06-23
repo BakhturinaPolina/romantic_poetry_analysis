@@ -31,7 +31,7 @@ def extract_text_from_pdf(rootdir):
                               print(f"Processing book {i + 1}/{len(os.listdir(rootdir))}")
                               # Iterate through all the pages stored above.
                               print(f"Generating images for {book_name}")
-                              images_from_path = convert_from_path(path, 70, output_folder=f'{root}/ocr_output')
+                              images_from_path = convert_from_path(path, dpi=70, output_folder=f'{root}/ocr_output')
 
                               for page_number, page in enumerate(images_from_path):
                                         # Declaring filename for each page of PDF as JPG. For each page, filename will be: PDF page n -> page_n.jpg"""

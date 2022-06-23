@@ -15,7 +15,7 @@ models = {"Romantic Poetry": romantic_poetry_model, "General Poetry": general_po
 top_words = {}
 
 for model_name, model in models.items():
-          top_words_model = model.wv.index_to_key[:300]  # Get top 300 words
+          top_words_model = model.wv.index_to_key[:300]  # Get top 300 words descending by popularity
           top_words[model_name] = [
                     word for word in top_words_model
                     if len(word) > 2 and word not in all_stopwords and word not in ['thy', 'thou']
@@ -23,9 +23,9 @@ for model_name, model in models.items():
 
 
 # Find common elements inside lists, and return a list of common elements
-def common_elements(arr):
-          result = set(arr[0])
-          for currSet in arr[1:]:
+def common_elements(list_of_lists):
+          result = set(list_of_lists[0])
+          for currSet in list_of_lists[1:]:
                     result.intersection_update(currSet)
 
           return list(result)

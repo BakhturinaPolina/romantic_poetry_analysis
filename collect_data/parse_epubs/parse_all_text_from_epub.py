@@ -12,7 +12,7 @@ output = []
 #                   book.epub
 
 # This is a recursive function, which will enter folder, iterate over contents, if the content is a subfolder,
-# it will call itself again on that subfolder, i.e. iterate over contents. If the contet is a file,
+# it will call itself again on that subfolder, i.e. iterate over contents. If the content is a file,
 # which we expect to be an epub, process it.
 def extract_poems_from_epubs(rootdir):
           for path in Path(rootdir).iterdir():  # iterate though all subdirs in rootdir
@@ -21,17 +21,17 @@ def extract_poems_from_epubs(rootdir):
                     if path.is_file():
                               # read content from each book in a subdir using ebooklib module
                               book = epub.read_epub(path)
-                              # Exctract chapters with .get_items_of_type method of epub, and map them to chapters list
+                              # Extract chapters with .get_items_of_type method of epub, and map them to chapters list
                               chapters = list(
                                         book.get_items_of_type(ITEM_DOCUMENT))
-                              # This part of the code is optional and needed to log which book is being proccesed.
+                              # This part of the code is optional and needed to log which book is being processed.
                               author_name = Path(rootdir).stem
                               print(f"Parsing book {Path(path).stem} by {author_name}")
 
-                              for chapter in chapters:  # apply the function "extract_poems_and_titles()" for each chapter.
+                              for chapter in chapters:
                                         soup = BeautifulSoup(chapter.get_body_content(), 'html.parser')
-                                        text = soup.text
-                                        text_lines = text.split('\n')
+                                        text = soup.text # Extracts all text from HTML as string
+                                        text_lines = text.split('\n') # Split the string by newlines into a list of lines
                                         output.extend(text_lines)
 
 

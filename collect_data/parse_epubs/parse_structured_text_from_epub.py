@@ -5,8 +5,6 @@ import json
 import os
 
 poems = {}  # This is an empty object where all poetry text will be stored. Here it's used for creating our final
-
-
 # json file for Romantic Poetry dataset, which will be structured in a following way:
 # {Author's name: {poem's title: "text of the poem"}}.
 
@@ -50,7 +48,7 @@ def extract_poems_and_titles(chapter, author_name):
                     while True:
                               # Depending on what's the next node, which we know by looking at nextSibling,
                               # we do different things:
-                              #         1. If the next node is null, which means we've reched the end of the document, we write
+                              #         1. If the next node is null, which means we've reached the end of the document, we write
                               #         all the collected text to `poems`
                               #         2. If it's an HTML tag, depending on what the tag is, we either:
                               #                   1. If the next tag is a header, we write the collected text to `poems`
@@ -69,8 +67,8 @@ def extract_poems_and_titles(chapter, author_name):
                                                   break
                                         else:  # if it's not a header tag, then it's probably our poem text
                                                   parsed = nextNode.get_text(
-                                                            strip=True).strip()  # exctract truncated string from the tag
-                                                  if len(parsed) > 0:  # if it's not empty, append to our collection of exctracted strings for this poem
+                                                            strip=True).strip()  # extract truncated string from the tag
+                                                  if len(parsed) > 0:  # if it's not empty, append to our collection of extracted strings for this poem
                                                             full_text_array.append(parsed)
 
 
@@ -85,7 +83,7 @@ def extract_poems_and_titles(chapter, author_name):
 def extract_poems_from_epubs(rootdir):
           for path in Path(rootdir).iterdir():  # iterate though all subdirs in rootdir
                     if path.is_dir():
-                              # If this is a directory, we exctract the author's name by using .stem,
+                              # If this is a directory, we extract the author's name by using .stem,
                               # initiate an author object in `poems`, and navigate into the folder.
                               author_name = Path(
                                         path).stem  # .stem returns the last element of the path, which in our case is author name
@@ -94,10 +92,10 @@ def extract_poems_from_epubs(rootdir):
                     if path.is_file():
                               # read content from each book in a subdir using ebooklib module
                               book = epub.read_epub(path)
-                              # Exctract chapters with .get_items_of_type method of epub, and map them to chapters list
+                              # Extract chapters with .get_items_of_type method of epub, and map them to chapters list
                               chapters = list(
                                         book.get_items_of_type(ITEM_DOCUMENT))
-                              # This part of the code is optional and needed to log which book is being proccesed.
+                              # This part of the code is optional and needed to log which book is being processed.
                               author_name = Path(rootdir).stem
                               print(f"Parsing book {Path(path).stem} by {author_name}")
 
